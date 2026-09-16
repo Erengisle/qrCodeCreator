@@ -1,33 +1,39 @@
 # qrCodeCreator
 
-Ett litet Node.js-verktyg som skapar QR-koder från text eller URL:er.
+En enkel hemsida som skapar QR-koder från text eller URL:er, direkt i webbläsaren.
 
-## Installation
+## Använda hemsidan
+
+Ingen installation eller server krävs — öppna bara `index.html` i en webbläsare
+(dubbelklicka på filen, eller kör en enkel lokal server, t.ex.):
+
+```bash
+python3 -m http.server 8000
+```
+
+och gå sedan till `http://localhost:8000` i webbläsaren.
+
+Skriv in en text eller URL, välj färg, bakgrund och storlek, klicka på
+**Skapa QR-kod** och ladda ner resultatet som PNG eller SVG.
+
+QR-koden skapas helt lokalt i webbläsaren (inget skickas till någon server).
+JavaScript-biblioteket som gör själva kodningen finns paketerat i
+`vendor/qrcode.min.js`, så sidan fungerar även utan internetuppkoppling.
+
+## Filer
+
+- `index.html` – sidans struktur och formulär
+- `style.css` – utseende
+- `app.js` – logik som genererar QR-koden och nedladdningslänkarna
+- `vendor/qrcode.min.js` – buntat JS-bibliotek ([`qrcode`](https://www.npmjs.com/package/qrcode)) för QR-kodning
+
+## Kommandoradsverktyg (alternativ)
+
+Repot innehåller även ett litet Node.js-skript om du hellre vill skapa
+QR-koder från terminalen:
 
 ```bash
 npm install
+node generate.js "https://example.com"                # skriver ut i terminalen
+node generate.js "https://example.com" out/kod.png     # sparar som PNG
 ```
-
-## Användning
-
-Skriv ut QR-koden direkt i terminalen:
-
-```bash
-node generate.js "https://example.com"
-```
-
-Spara QR-koden som en PNG-bild:
-
-```bash
-node generate.js "https://example.com" out/min-qrkod.png
-```
-
-Om ingen filsökväg anges skrivs QR-koden ut som ASCII-grafik i terminalen.
-Om en filsökväg anges (t.ex. `out/min-qrkod.png`) sparas QR-koden som en
-512x512 PNG-bild, och mappen skapas automatiskt om den inte redan finns.
-
-## Hur det fungerar
-
-Verktyget använder npm-paketet [`qrcode`](https://www.npmjs.com/package/qrcode)
-för att koda text till en QR-kod, antingen som ASCII-tecken för terminalen
-eller som en PNG-bild.
