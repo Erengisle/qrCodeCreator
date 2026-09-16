@@ -5,6 +5,7 @@ const bgInput = document.getElementById('qr-bg');
 const sizeSelect = document.getElementById('qr-size');
 const errorMessage = document.getElementById('error-message');
 const result = document.getElementById('result');
+const placeholder = document.getElementById('placeholder');
 const canvas = document.getElementById('qr-canvas');
 const downloadPng = document.getElementById('download-png');
 const downloadSvg = document.getElementById('download-svg');
@@ -13,6 +14,7 @@ function showError(message) {
   errorMessage.textContent = message;
   errorMessage.hidden = false;
   result.hidden = true;
+  placeholder.hidden = false;
 }
 
 function clearError() {
@@ -21,6 +23,11 @@ function clearError() {
 
 async function generateQrCode(text, options) {
   await QRCode.toCanvas(canvas, text, options);
+  // The library sets an inline width/height style on the canvas that
+  // overrides our CSS sizing (it wins over "height: auto"), which made
+  // the QR code render tall and narrow. Clear it so our stylesheet applies.
+  canvas.style.removeProperty('width');
+  canvas.style.removeProperty('height');
   downloadPng.href = canvas.toDataURL('image/png');
 
   const svgString = await QRCode.toString(text, { ...options, type: 'svg' });
@@ -50,6 +57,7 @@ form.addEventListener('submit', async (event) => {
   try {
     await generateQrCode(text, options);
     result.hidden = false;
+    placeholder.hidden = true;
   } catch (err) {
     showError('Kunde inte skapa QR-kod: ' + err.message);
   }

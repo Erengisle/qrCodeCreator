@@ -8,46 +8,51 @@
 </head>
 <body>
   <main class="card">
-    <h1>QR-kodgenerator</h1>
-    <p class="subtitle">Skriv in en text eller URL och skapa en QR-kod direkt i webbläsaren.</p>
+    <div class="form-panel">
+      <h1>QR-kodgenerator</h1>
+      <p class="subtitle">Skriv in en text eller URL och skapa en QR-kod direkt i webbläsaren.</p>
 
-    <form id="qr-form">
-      <label for="qr-text">Text eller URL</label>
-      <input
-        type="text"
-        id="qr-text"
-        name="qr-text"
-        placeholder="https://example.com"
-        autocomplete="off"
-        required
-      />
+      <form id="qr-form">
+        <label for="qr-text">Text eller URL</label>
+        <input
+          type="text"
+          id="qr-text"
+          name="qr-text"
+          placeholder="https://example.com"
+          autocomplete="off"
+          required
+        />
 
-      <div class="options">
-        <label for="qr-color">Färg</label>
-        <input type="color" id="qr-color" value="#000000" />
+        <div class="options">
+          <label for="qr-color">Färg</label>
+          <input type="color" id="qr-color" value="#000000" />
 
-        <label for="qr-bg">Bakgrund</label>
-        <input type="color" id="qr-bg" value="#ffffff" />
+          <label for="qr-bg">Bakgrund</label>
+          <input type="color" id="qr-bg" value="#ffffff" />
 
-        <label for="qr-size">Storlek</label>
-        <select id="qr-size">
-          <option value="256">256 px</option>
-          <option value="384">384 px</option>
-          <option value="512" selected>512 px</option>
-          <option value="768">768 px</option>
-        </select>
-      </div>
+          <label for="qr-size">Storlek</label>
+          <select id="qr-size">
+            <option value="256">256 px</option>
+            <option value="384" selected>384 px</option>
+            <option value="512">512 px</option>
+            <option value="768">768 px</option>
+          </select>
+        </div>
 
-      <button type="submit">Skapa QR-kod</button>
-    </form>
+        <button type="submit">Skapa QR-kod</button>
+      </form>
 
-    <p id="error-message" class="error" hidden></p>
+      <p id="error-message" class="error" hidden></p>
+    </div>
 
-    <div id="result" class="result" hidden>
-      <canvas id="qr-canvas"></canvas>
-      <div class="download-buttons">
-        <a id="download-png" download="qrkod.png">Ladda ner PNG</a>
-        <a id="download-svg" download="qrkod.svg">Ladda ner SVG</a>
+    <div class="result-panel">
+      <p id="placeholder" class="placeholder">Din QR-kod visas här</p>
+      <div id="result" class="result" hidden>
+        <canvas id="qr-canvas"></canvas>
+        <div class="download-buttons">
+          <a id="download-png" download="qrkod.png">Ladda ner PNG</a>
+          <a id="download-svg" download="qrkod.svg">Ladda ner SVG</a>
+        </div>
       </div>
     </div>
   </main>
